@@ -121,14 +121,6 @@ export default function NiveisPage() {
   return (
     <Container maxWidth="xs" sx={{ mt: 4 }}>
       <Typography variant="h5" textAlign="center">Lista de Pessoas 📋</Typography>
-      
-      <TextField
-        label="Nome"
-        fullWidth
-        value={nome}
-        onChange={(e) => setNome(e.target.value)}
-        sx={{ mb: 2, mt: 2 }}
-      />
       <form onSubmit={(e) => {
         e.preventDefault();
         handleAddPessoa();
