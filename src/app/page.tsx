@@ -198,7 +198,7 @@ export default function NiveisPage() {
         color="secondary"
         disabled={pessoas.length <= 7}
         onClick={handleAvancar}
-        sx={{ mt: 3 }}
+        sx={{ mt: 4, mb: 6 }}
       >
         Avançar
       </Button>
