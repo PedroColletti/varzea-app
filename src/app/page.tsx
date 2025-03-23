@@ -158,7 +158,7 @@ export default function NiveisPage() {
         Total de pessoas na lista: {pessoas.length}
       </Typography>
 
-      <List sx={{ maxHeight: { xs: "50vh", sm: "60vh", md: "70vh" }, overflowY: "auto" }}>
+      <List sx={{ maxHeight: { xs: "45vh", sm: "55vh", md: "65vh" }, overflowY: "auto" }}>
         {pessoas.map((pessoa) => {
           const { color, estrelas } = getNivelStyle(pessoa.nivel, pessoa.nome);
           return (
