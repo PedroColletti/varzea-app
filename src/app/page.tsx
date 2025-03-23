@@ -93,6 +93,8 @@ export default function NiveisPage() {
   
 
   const handleClearList = () => {
+    localStorage.removeItem("pessoas");
+    localStorage.removeItem("numTimes");
     setPessoas([]);
     setIsDialogOpen(false);
   };
