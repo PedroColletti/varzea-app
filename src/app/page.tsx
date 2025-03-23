@@ -129,12 +129,23 @@ export default function NiveisPage() {
         onChange={(e) => setNome(e.target.value)}
         sx={{ mb: 2, mt: 2 }}
       />
-      <Button fullWidth onClick={handleAddPessoa} variant="contained" color="success">
-        Adicionar
-      </Button>
-      { pessoas.length >= 8 ? (
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        handleAddPessoa();
+      }}>
+        <TextField
+          label="Nome"
+          fullWidth
+          value={nome}
+          onChange={(e) => setNome(e.target.value)}
+          sx={{ mb: 2, mt: 2 }}
+        />
+        <Button fullWidth type="submit" variant="contained" color="success">
+          Adicionar
+        </Button>
+      </form>
 
-        
+      {pessoas.length >= 8 ? (
         <Fade in={pessoas.length >= 8}>
         <Button
           fullWidth
@@ -146,12 +157,11 @@ export default function NiveisPage() {
             Limpar Lista
           </Button>
         </Fade>
-          )
-          :     
+        ):(     
         <Typography sx={{ mt: 2 }} textAlign="center">
          Insira ao menos 8 pessoas na lista
-        </Typography>}
-
+        </Typography>
+      )}
       <Typography sx={{ mt: 2 }} textAlign="center">
         Total de pessoas na lista: {pessoas.length}
       </Typography>
