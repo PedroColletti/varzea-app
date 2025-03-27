@@ -105,7 +105,7 @@ export default function NiveisPage() {
   };
 
   const getNivelStyle = (nivel: number, nome: string) => {
-    if (nome.toLowerCase() === "garrido") {
+    if (nome.trim().toLowerCase() === "garrido") {
       return { color: "red", estrelas: "🍆 HOMOSSEXUAL" };
     }
     switch (nivel) {
