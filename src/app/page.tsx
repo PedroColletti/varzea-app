@@ -49,7 +49,7 @@ export default function NiveisPage() {
     const novaPessoa = {
       id: Date.now(),
       nome,
-      nivel: nome.toLowerCase() === "garrido" ? 3 : 1,
+      nivel: nome.trim().toLowerCase() === "garrido" ? 3 : 1,
     };
   
     const novaLista = [...pessoas, novaPessoa];
