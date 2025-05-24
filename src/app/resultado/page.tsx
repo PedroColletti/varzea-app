@@ -65,8 +65,10 @@ export default function ResultadoPage() {
           excedentes.push(pessoa);
         } else {
           index = (index + 1) % quantidadeTimes;
-          pessoa && pessoasOrdenadas.unshift(pessoa);
-        }
+          if (pessoa) {
+            pessoasOrdenadas.unshift(pessoa);
+          }
+                  }
       }
   
       index = (index + 1) % quantidadeTimes;
