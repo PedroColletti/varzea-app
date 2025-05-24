@@ -65,8 +65,10 @@ export default function ResultadoPage() {
           excedentes.push(pessoa);
         } else {
           index = (index + 1) % quantidadeTimes;
-          pessoa && pessoasOrdenadas.unshift(pessoa);
-        }
+          if (pessoa) {
+            pessoasOrdenadas.unshift(pessoa);
+          }
+                  }
       }
   
       index = (index + 1) % quantidadeTimes;
@@ -74,7 +76,7 @@ export default function ResultadoPage() {
   
     if (excedentes.length > 0) {
       times.push({
-        id: -1, // ID especial
+        id: -1,
         membros: excedentes
       });
     }
