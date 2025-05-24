@@ -21,12 +21,17 @@ import {
 } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import DeleteIcon from "@mui/icons-material/Delete";
+import StarIcon from "@mui/icons-material/Star";
+import StarBorderIcon from "@mui/icons-material/StarBorder";
+
 
 type Pessoa = {
   id: number;
   nome: string;
   nivel: number;
+  mensalista?: boolean;
 };
+
 
 export default function NiveisPage() {
   const [nome, setNome] = useState("");
@@ -46,17 +51,27 @@ export default function NiveisPage() {
   const handleAddPessoa = () => {
     if (nome.trim() === "") return;
   
+    const nomeLower = nome.toLowerCase();
+  
     const novaPessoa = {
       id: Date.now(),
       nome,
-      nivel: nome.toLowerCase() === "garrido" ? 3 : 1,
+      nivel:
+        nomeLower === "garrido" ? 3 :
+        nomeLower === "goleiro" ? 0 :
+        1,
+      mensalista: false,
     };
+
+
+    
   
     const novaLista = [...pessoas, novaPessoa];
     setPessoas(novaLista);
     localStorage.setItem("pessoas", JSON.stringify(novaLista));
     setNome("");
   };
+  
   
   const handleOpenMenu = (event: React.MouseEvent<HTMLElement>, id: number) => {
     setAnchorEl(event.currentTarget);
@@ -105,8 +120,12 @@ export default function NiveisPage() {
   };
 
   const getNivelStyle = (nivel: number, nome: string) => {
-    if (nome.toLowerCase() === "garrido") {
+    const nomeLower = nome.toLowerCase();
+    if (nomeLower === "garrido") {
       return { color: "red", estrelas: "🍆 HOMOSSEXUAL" };
+    }
+    if (nivel === 0 || nomeLower === "goleiro") {
+      return { color: "blue", estrelas: "🧤" };
     }
     switch (nivel) {
       case 1:
@@ -119,6 +138,17 @@ export default function NiveisPage() {
         return { color: "gray", estrelas: "" };
     }
   };
+
+
+  const toggleMensalista = (id: number) => {
+    const novaLista = pessoas.map(p =>
+      p.id === id ? { ...p, mensalista: !p.mensalista } : p
+    );
+    setPessoas(novaLista);
+    localStorage.setItem("pessoas", JSON.stringify(novaLista));
+  };
+  
+  
 
   return (
     <Container maxWidth="xs" sx={{ mt: 4 }}>
@@ -164,29 +194,38 @@ export default function NiveisPage() {
         {pessoas.map((pessoa) => {
           const { color, estrelas } = getNivelStyle(pessoa.nivel, pessoa.nome);
           return (
-            <ListItem key={pessoa.id}
-              secondaryAction={
-                <>
-                  {pessoa.nome.toLowerCase() !== "garrido" && (
-                    <IconButton onClick={(e) => handleOpenMenu(e, pessoa.id)}>
-                      <MoreVertIcon />
+              <ListItem
+                key={pessoa.id}
+                secondaryAction={
+                  <>
+                    <IconButton onClick={() => toggleMensalista(pessoa.id)} color="warning">
+                      {pessoa.mensalista ? <StarIcon /> : <StarBorderIcon />}
                     </IconButton>
-                  )}
-                  <IconButton onClick={() => handleDeletePessoa(pessoa.id)} color="error">
-                    <DeleteIcon />
-                  </IconButton>
-                </>
-              }
-            >
+                    {pessoa.nome.toLowerCase() !== "garrido" && (
+                      <IconButton onClick={(e) => handleOpenMenu(e, pessoa.id)}>
+                        <MoreVertIcon />
+                      </IconButton>
+                    )}
+                    <IconButton onClick={() => handleDeletePessoa(pessoa.id)} color="error">
+                      <DeleteIcon />
+                    </IconButton>
+                  </>
+                }
+              >
+
             <ListItemText
               primary={pessoa.nome}
-              secondary={<Typography sx={{ color }}>{estrelas} {`Nível ${pessoa.nivel}`}</Typography>}
+              secondary={<Typography sx={{ color }}>
+              {estrelas} {pessoa.nivel === 0 ? "Goleiro" : `Nível ${pessoa.nivel}`}
+            </Typography>
+            }
             />
             </ListItem>
           );
         })}
       </List>
       <Menu anchorEl={anchorEl} open={Boolean(anchorEl)} onClose={handleCloseMenu}>
+        <MenuItem onClick={() => handleChangeNivel(0)}>Goleiro</MenuItem>
         {[1, 2, 3].map((nivel) => (
           <MenuItem key={nivel} onClick={() => handleChangeNivel(nivel)}>
             Nível {nivel}
