@@ -230,11 +230,10 @@ export default function NiveisPage() {
       >
         Avançar
       </Button>
-
       <Dialog open={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
         <DialogTitle>Confirmação</DialogTitle>
         <DialogContent>
-          Tem certeza que deseja limpar a lista?
+          Tem certeza que deseja limpar a lista? 
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setIsDialogOpen(false)} color="primary">Não</Button>
