@@ -76,7 +76,7 @@ export default function ResultadoPage() {
   
     if (excedentes.length > 0) {
       times.push({
-        id: -1, // ID especial
+        id: -1,
         membros: excedentes
       });
     }
