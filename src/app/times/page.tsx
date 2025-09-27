@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { Container, Typography, Button, Stack } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { Button, Container, Stack, Typography } from '@mui/material';
+import { useRouter } from 'next/navigation';
+import { useEffect, useState } from 'react';
 
 export default function TimesPage() {
   const [times, setTimes] = useState<number | null>(null);
   const router = useRouter();
 
   useEffect(() => {
-    const storedTimes = localStorage.getItem("numTimes");
+    const storedTimes = localStorage.getItem('numTimes');
     if (storedTimes) {
       setTimes(parseInt(storedTimes));
     }
@@ -21,15 +21,15 @@ export default function TimesPage() {
 
   const handleConfirm = () => {
     if (times) {
-      localStorage.setItem("numTimes", times.toString());
-      router.push("/resultado");
+      localStorage.setItem('numTimes', times.toString());
+      router.push('/resultado');
     }
   };
 
   return (
     <Container maxWidth="xs" sx={{ mt: 4 }}>
       <Typography variant="h5" textAlign={'center'} gutterBottom>
-        Escolha quantos times serão 
+        Escolha quantos times serão
       </Typography>
 
       <Stack spacing={2} sx={{ mt: 3 }}>
@@ -37,7 +37,7 @@ export default function TimesPage() {
           <Button
             key={num}
             color="success"
-            variant={times === num ? "contained" : "outlined"}
+            variant={times === num ? 'contained' : 'outlined'}
             onClick={() => handleSelectTimes(num)}
           >
             {num} Times
@@ -46,19 +46,13 @@ export default function TimesPage() {
       </Stack>
 
       <Stack direction="row" spacing={2} sx={{ mt: 4 }}>
-        <Button
-          variant="contained"
-          color="primary"
-          fullWidth
-          onClick={() => router.back()}
-        >
+        <Button variant="contained" color="primary" fullWidth onClick={() => router.back()}>
           Voltar
         </Button>
         <Button
           variant="contained"
           color="secondary"
           fullWidth
-
           disabled={!times}
           onClick={handleConfirm}
         >
