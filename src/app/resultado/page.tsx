@@ -21,7 +21,6 @@ import {
   Paper,
   Stack,
   Typography,
-  useTheme,
 } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
@@ -54,8 +53,6 @@ const PlayerCard: React.FC<{
   position: { x: number; y: number; label: string };
   teamColor: string;
 }> = ({ pessoa, position, teamColor }) => {
-  const theme = useTheme();
-
   return (
     <Box
       sx={{
