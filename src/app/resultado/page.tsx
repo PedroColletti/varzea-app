@@ -40,13 +40,13 @@ type Time = {
 
 // Posições no campo para cada jogador
 const fieldPositions = [
-  { x: 15, y: 50, label: 'GOL' }, // Goleiro
-  { x: 30, y: 25, label: 'ZAG' }, // Zagueiro esquerdo
-  { x: 30, y: 75, label: 'ZAG' }, // Zagueiro direito
-  { x: 50, y: 35, label: 'MEI' }, // Meio-campo esquerdo
-  { x: 50, y: 65, label: 'MEI' }, // Meio-campo direito
-  { x: 70, y: 30, label: 'ATA' }, // Atacante esquerdo
-  { x: 70, y: 70, label: 'ATA' }, // Atacante direito
+  { x: 12, y: 50, label: 'GOL' }, // Goleiro
+  { x: 40, y: 50, label: 'ZAG' }, // Zag central
+  { x: 45, y: 25, label: 'ZAG' }, // Zagueiro esquerdo
+  { x: 45, y: 78, label: 'ZAG' }, // Zagueiro direito
+  { x: 70, y: 50, label: 'MEI' }, // Meio-campo
+  { x: 82, y: 27, label: 'ATA' }, // Atacante esquerdo
+  { x: 82, y: 70, label: 'ATA' }, // Atacante direito
 ];
 
 const PlayerCard: React.FC<{
