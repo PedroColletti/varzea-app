@@ -24,6 +24,18 @@ import {
 } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
+import bagunca from '../../../public/bagunca.png';
+import danielIzac from '../../../public/danielIzac.png';
+import edgar from '../../../public/edgar.png';
+import garrido from '../../../public/garrido.png';
+import gutao from '../../../public/gutao.png';
+import otavio from '../../../public/otavio.png';
+import fotoPedro from '../../../public/pedro.png';
+import pedroMendes from '../../../public/pedroMendes.png';
+import rafaelGarrido from '../../../public/rafaelGarrido.png';
+import renan from '../../../public/renan.png';
+import thomas from '../../../public/thomas.png';
+import tiago from '../../../public/tiago.png';
 
 type Pessoa = {
   id: number;
@@ -39,20 +51,47 @@ type Time = {
 
 // Posições no campo para cada jogador
 const fieldPositions = [
-  { x: 12, y: 50, label: 'GOL' }, // Goleiro
-  { x: 40, y: 50, label: 'ZAG' }, // Zag central
-  { x: 45, y: 25, label: 'ZAG' }, // Zagueiro esquerdo
-  { x: 45, y: 78, label: 'ZAG' }, // Zagueiro direito
-  { x: 70, y: 50, label: 'MEI' }, // Meio-campo
-  { x: 82, y: 27, label: 'ATA' }, // Atacante esquerdo
-  { x: 82, y: 70, label: 'ATA' }, // Atacante direito
+  { x: 15, y: 50, label: 'GOL' }, // Goleiro
+  { x: 45, y: 50, label: 'ZAG' }, // Zag central
+  { x: 45, y: 15, label: 'ZAG' }, // Zagueiro esquerdo
+  { x: 45, y: 82, label: 'ZAG' }, // Zagueiro direito
+  { x: 78, y: 50, label: 'MEI' }, // Meio-campo
+  { x: 82, y: 18, label: 'ATA' }, // Atacante esquerdo
+  { x: 82, y: 78, label: 'ATA' }, // Atacante direito
 ];
+
+// Mapa de fotos por nome
+const playerPhotos: Record<string, string> = {
+  ['Pedro Colletti'.toLowerCase()]: fotoPedro.src,
+  ['Rafael'.toLowerCase()]: rafaelGarrido.src,
+  ['Bagunça'.toLowerCase()]: bagunca.src,
+  ['Daniel'.toLowerCase()]: danielIzac.src,
+  ['Edgar'.toLowerCase()]: edgar.src,
+  ['Garrido'.toLowerCase()]: garrido.src,
+  ['Gutão'.toLowerCase()]: gutao.src,
+  ['Otavio'.toLowerCase()]: otavio.src,
+  ['Pedro Mendes'.toLowerCase()]: pedroMendes.src,
+  ['Renan'.toLowerCase()]: renan.src,
+  ['Thomas'.toLowerCase()]: thomas.src,
+  ['Tiago'.toLowerCase()]: tiago.src,
+};
+
+//  Mapa de cards FIFA
+const cardBackgrounds: Record<number, string> = {
+  5: '/cardLegend.png',
+  4: '/cardOuro.png',
+  3: '/cardPrata.png',
+  2: '/cardBronze.png',
+  1: '/cardBronze.png',
+};
 
 const PlayerCard: React.FC<{
   pessoa: Pessoa;
   position: { x: number; y: number; label: string };
-  teamColor: string;
-}> = ({ pessoa, position, teamColor }) => {
+}> = ({ pessoa, position }) => {
+  const foto = playerPhotos[pessoa.nome.toLowerCase()]; // foto pelo nome
+  const cardBg = cardBackgrounds[pessoa.nivel] || '/cardBronze.png'; // fallback bronze
+
   return (
     <Box
       sx={{
@@ -68,38 +107,81 @@ const PlayerCard: React.FC<{
         },
       }}
     >
-      <Paper
-        elevation={6}
+      <Box
         sx={{
-          bgcolor: teamColor,
-          color: 'white',
-          px: 1.5,
-          py: 1,
-          minWidth: '80px',
-          textAlign: 'center',
-          border: '2px solid white',
-          borderRadius: 2,
+          width: '100px', // menor largura
+          height: '140px', // menor altura
+          backgroundImage: `url(${cardBg})`,
+          backgroundSize: 'contain', // evita cortar a imagem
+          backgroundRepeat: 'no-repeat',
+          backgroundPosition: 'center',
+          position: 'relative',
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'flex-end',
+          p: 1,
         }}
       >
+        {/* Foto central */}
+        {foto && (
+          <Box
+            component="img"
+            src={foto}
+            alt={pessoa.nome}
+            sx={{
+              position: 'absolute',
+              top: '40%',
+              left: '60%',
+              transform: 'translate(-50%, -50%)',
+              width: 43,
+              height: 57,
+              borderRadius: '10px',
+              objectFit: 'cover',
+            }}
+          />
+        )}
+
+        {/* Nível */}
         <Typography
-          variant="caption"
-          sx={{ fontWeight: 'bold', display: 'block', fontSize: '0.7rem' }}
+          variant="h6"
+          sx={{
+            position: 'absolute',
+            top: 30,
+            left: 20,
+            fontWeight: 'bold',
+            fontSize: '1.2rem',
+            color: '#ffffffff',
+          }}
+        >
+          {pessoa.nivel}
+        </Typography>
+
+        {/* Nome */}
+        <Typography
+          variant="subtitle2"
+          sx={{
+            position: 'absolute',
+            top: 84,
+            left: '50%', // centraliza
+            transform: 'translateX(-50%)', // corrige a âncora
+            fontWeight: 'bold',
+            fontSize: '0.8rem',
+            color: '#ffffffff',
+            px: 0.5,
+            borderRadius: 1,
+            whiteSpace: 'nowrap', // evita quebrar linha
+            textAlign: 'center',
+          }}
         >
           {pessoa.nome.length > 8 ? pessoa.nome.substring(0, 8) + '...' : pessoa.nome}
         </Typography>
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 0.5 }}>
-          {pessoa.nivel === 0 && <GoalkeeperIcon sx={{ fontSize: 12 }} />}
-          {pessoa.mensalista && <StarIcon sx={{ fontSize: 12, color: '#FFD700' }} />}
-          <Typography variant="caption" sx={{ fontSize: '0.65rem' }}>
-            {pessoa.nivel === 0 ? 'GOL' : pessoa.nivel}
-          </Typography>
-        </Box>
-      </Paper>
+      </Box>
     </Box>
   );
 };
 
-const SoccerField: React.FC<{ time: Time; teamColor: string }> = ({ time, teamColor }) => {
+const SoccerField: React.FC<{ time: Time; teamColor: string }> = ({ time }) => {
   return (
     <Paper
       elevation={8}
@@ -150,9 +232,7 @@ const SoccerField: React.FC<{ time: Time; teamColor: string }> = ({ time, teamCo
           y: 50 + (index - 6) * 15,
           label: 'SUB',
         };
-        return (
-          <PlayerCard key={membro.id} pessoa={membro} position={position} teamColor={teamColor} />
-        );
+        return <PlayerCard key={membro.id} pessoa={membro} position={position} />;
       })}
 
       {/* Nome do time */}
@@ -171,22 +251,6 @@ const SoccerField: React.FC<{ time: Time; teamColor: string }> = ({ time, teamCo
         <Typography variant="body2" sx={{ fontWeight: 'bold' }}>
           {time.id === -1 ? 'Próximos Jogadores' : `TIME ${time.id}`}
         </Typography>
-      </Box>
-
-      {/* Estatísticas do time */}
-      <Box
-        sx={{
-          position: 'absolute',
-          top: 8,
-          right: 8,
-          bgcolor: alpha('#000', 0.7),
-          color: 'white',
-          px: 2,
-          py: 1,
-          borderRadius: 1,
-        }}
-      >
-        <Typography variant="body2">{time.membros.length} jogadores</Typography>
         <Typography variant="caption" sx={{ display: 'block' }}>
           Soma: {time.membros.reduce((soma, m) => soma + (m.nivel === 0 ? 3 : m.nivel), 0)}
         </Typography>
