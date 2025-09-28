@@ -25,10 +25,12 @@ import {
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import bagunca from '../../../public/bagunca.png';
+import caique from '../../../public/caique.png';
 import danielIzac from '../../../public/danielIzac.png';
 import edgar from '../../../public/edgar.png';
 import garrido from '../../../public/garrido.png';
 import gutao from '../../../public/gutao.png';
+import mateus from '../../../public/mateus.png';
 import otavio from '../../../public/otavio.png';
 import fotoPedro from '../../../public/pedro.png';
 import pedroMendes from '../../../public/pedroMendes.png';
@@ -64,7 +66,7 @@ const fieldPositions = [
 const playerPhotos: Record<string, string> = {
   ['Pedro Colletti'.toLowerCase()]: fotoPedro.src,
   ['Rafael'.toLowerCase()]: rafaelGarrido.src,
-  ['Bagunça'.toLowerCase()]: bagunca.src,
+  ['Bagunca'.toLowerCase()]: bagunca.src,
   ['Daniel'.toLowerCase()]: danielIzac.src,
   ['Edgar'.toLowerCase()]: edgar.src,
   ['Garrido'.toLowerCase()]: garrido.src,
@@ -74,6 +76,8 @@ const playerPhotos: Record<string, string> = {
   ['Renan'.toLowerCase()]: renan.src,
   ['Thomas'.toLowerCase()]: thomas.src,
   ['Tiago'.toLowerCase()]: tiago.src,
+  ['Mateus'.toLowerCase()]: mateus.src,
+  ['Caique'.toLowerCase()]: caique.src,
 };
 
 //  Mapa de cards FIFA
